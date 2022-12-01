@@ -1,0 +1,8 @@
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\bin\Debug\FP_SET2.exe.config
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\bin\Debug\FP_SET2.exe
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\bin\Debug\FP_SET2.pdb
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\obj\Debug\FP_SET2.csproj.AssemblyReference.cache
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\obj\Debug\FP_SET2.csproj.SuggestedBindingRedirects.cache
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\obj\Debug\FP_SET2.csproj.CoreCompileInputs.cache
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\obj\Debug\FP_SET2.exe
+C:\Users\Vali\source\repos\Acasa\FP_SET2\FP_SET2\obj\Debug\FP_SET2.pdb
