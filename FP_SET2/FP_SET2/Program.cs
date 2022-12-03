@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Net.NetworkInformation;
 using System.Data.SqlTypes;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace FP_SET2
 {
@@ -370,7 +371,8 @@ namespace FP_SET2
             {
                 int x = int.Parse(s[i]);
                 if (i == 0) 
-                { first = x; 
+                { 
+                    first = x; 
                     previous = x; 
                 }
                 if (previous > x) 
@@ -395,6 +397,35 @@ namespace FP_SET2
                               "secventa monotona rotita."); Console.WriteLine();
             Console.WriteLine("Introduceti numerele separate printr-un spatiu..");
             string[] s = Console.ReadLine().Split(' ');
+            int first = 0, last = 0, previous = 0, counter = 0, counter2 = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (i == 0)
+                {
+                    first = x;
+                    previous = x;
+                }
+                if (previous > x)
+                    counter++;
+                else if(previous < x)
+                    counter2++;
+                if (i == s.Length - 1)
+                    last = x;
+                previous = x;
+            }
+            if (counter == 0)
+                Console.WriteLine("Secventa este monotona crescatoare");
+            else if (counter2 == 0)
+                Console.WriteLine("Secventa este monotona descrescatioare");
+            else
+                if (counter == 1 && last < first)
+                Console.WriteLine("Secventa este monotona crescatoare rotita");
+            else if (counter2 == 1 && last > first)
+                Console.WriteLine("Secventa este monotona descrescatoare rotita");
+            else
+                Console.WriteLine("Secventa nu este monotona rotita");
+            Console.WriteLine();
         }
         private static void P15()
         {
@@ -403,6 +434,39 @@ namespace FP_SET2
                               "Se da o secventa de n numere. Sa se determine daca este bitonica. "); Console.WriteLine();
             Console.WriteLine("Introduceti numerele separate printr-un spatiu..");
             string[] s = Console.ReadLine().Split(' ');
+            int previous = 0, counter = 0, counter2 = 0;
+            int max = int.Parse(s[0]), pmax = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (x > max)
+                {
+                    max = x;
+                    pmax = i;
+                }
+            }
+            for (int i = 0; i <= pmax; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (i == 0)                                   
+                    previous = x;
+                if (previous > x)
+                    counter++;         
+                previous = x;
+            }
+            for (int i = pmax; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (i == 0)  
+                    previous = x;
+                if (previous < x)
+                    counter2++;          
+                previous = x;
+            }
+            if (counter == 0 && counter2 == 0)
+                Console.WriteLine("Secventa este bitonica");
+            else Console.WriteLine("Secventa NU este bitonica");
+            Console.WriteLine();
         }
         private static void P16()
         {
@@ -410,7 +474,73 @@ namespace FP_SET2
                               "secventa bitonica prin rotiri succesive (rotire = primul element devine ultimul). " +
                               "Se da o secventa de n numere. Se cere sa se determine daca este o secventa bitonica rotita."); Console.WriteLine();
             Console.WriteLine("Introduceti numerele separate printr-un spatiu..");
-            string[] s = Console.ReadLine().Split(' ');
+            char[] sep = {' ', ',', ';', '/'};
+            string[] s = Console.ReadLine().Split(sep, StringSplitOptions.RemoveEmptyEntries);
+            if (EsteBitonica(s))
+                Console.WriteLine("Secventa este bitonica");
+            else
+            {
+                Rotire(s);
+                if (EsteBitonica(s))
+                        Console.WriteLine("Secventa este bitonica rotita");
+                else
+                    Console.WriteLine("Secventa NU este bitonica rotita");
+            }  
+            Console.WriteLine();
+        }
+        private static bool EsteBitonica(string[] s)
+        {
+            int previous = 0, counter = 0, counter2 = 0;
+            int max = int.Parse(s[0]), pmax = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (x > max)
+                {
+                    max = x;
+                    pmax = i;
+                }
+            }
+            for (int i = 0; i <= pmax; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (i == 0)
+                    previous = x;
+                if (previous > x)
+                    counter++;
+                previous = x;
+            }
+            for (int i = pmax; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (i == 0)
+                    previous = x;
+                if (previous < x)
+                    counter2++;
+                previous = x;
+            }
+            if (counter == 0 && counter2 == 0)
+                return true;
+            else return false;
+        }
+        private static string[] Rotire(string[] s)
+        {
+            int min = int.Parse(s[0]);
+            for (int i = 0; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (x < min)
+                    min = x;
+            }
+            while (Convert.ToInt32(s[0]) != min)
+            {
+                string aux = s[0];
+                for (int i = 1; i < s.Length; i++)
+                    s[i - 1] = s[i];
+                s[s.Length - 1] = aux;
+
+            }
+            return s;
         }
         private static void P17()
         {
@@ -419,7 +549,10 @@ namespace FP_SET2
                               "determinati nivelul maxim de incuibare a parantezelor. De exemplu 0 1 0 0 1 0 1 1 este corecta si are " +
                               "nivelul maxim de incuibare 2 pe cand 0 0 1 1 1 0 este incorecta."); Console.WriteLine();
             Console.WriteLine("Introduceti numerele separate printr-un spatiu..");
-            string[] s = Console.ReadLine().Split(' ');
+            char[] sep = { ' ', ',', ';', '/' };
+            string[] s = Console.ReadLine().Split(sep, StringSplitOptions.RemoveEmptyEntries);
+
+
         }
     }
 }
