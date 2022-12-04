@@ -390,6 +390,9 @@ namespace FP_SET2
                     Console.WriteLine("Secventa nu este crescatoare rotita");
             Console.WriteLine();
         }
+        /// <summary>
+        /// Determina daca o secventa este monotona rotita
+        /// </summary>
         private static void P14()
         {
             Console.WriteLine("14. O <secventa monotona rotita> este o secventa de numere monotona sau poate fi transformata " +
@@ -427,6 +430,9 @@ namespace FP_SET2
                 Console.WriteLine("Secventa nu este monotona rotita");
             Console.WriteLine();
         }
+        /// <summary>
+        /// Determina daca o secventa este bitonica
+        /// </summary>
         private static void P15()
         {
             Console.WriteLine("15. O secventa bitonica este o secventa de numere care incepe monoton crescator si " +
@@ -468,6 +474,9 @@ namespace FP_SET2
             else Console.WriteLine("Secventa NU este bitonica");
             Console.WriteLine();
         }
+        /// <summary>
+        /// Determina daca o sewcventa este bitonica rotita
+        /// </summary>
         private static void P16()
         {
             Console.WriteLine("16. O <secventa bitonica rotita> este o secventa bitonica sau una ca poate fi transformata intr-o " +
@@ -488,6 +497,9 @@ namespace FP_SET2
             }  
             Console.WriteLine();
         }
+        /// <summary>
+        /// Returneaza true sau false daca o secventa este sau nu bitonica
+        /// </summary>
         private static bool EsteBitonica(string[] s)
         {
             int previous = 0, counter = 0, counter2 = 0;
@@ -523,6 +535,11 @@ namespace FP_SET2
                 return true;
             else return false;
         }
+        /// <summary>
+        /// Roteste succesiv o secventa pana cand elementul cu valoare minima va fi pe pozitia 0
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private static string[] Rotire(string[] s)
         {
             int min = int.Parse(s[0]);
@@ -551,7 +568,42 @@ namespace FP_SET2
             Console.WriteLine("Introduceti numerele separate printr-un spatiu..");
             char[] sep = { ' ', ',', ';', '/' };
             string[] s = Console.ReadLine().Split(sep, StringSplitOptions.RemoveEmptyEntries);
+            bool ok = true;
+            if (s.Length % 2 != 0)
+            {
+                Console.WriteLine("Secventa de paranteze este gresita, exista o paranteza in plus."); ok = false;
+            }
+            if(ok)
+            for (int i = 0; i < s.Length; i++)
+            {
+                int x = int.Parse(s[i]);
+                if (x != 0 && x != 1 )
+                {
+                    Console.WriteLine("Secventa este gresita, aceasta trebuie sa contina doar 0 si 1"); ok = false; break; 
+                }
+                if (i == 0 && x == 1)
+                {
+                    Console.WriteLine("Secventa de paranteze este gresita, incepe cu paranteza inchisa"); ok = false; break; 
+                }
+                if (i == s.Length - 1 && x == 0)
+                {
+                    Console.WriteLine("Secventa de paranteze este gresita, se tremina cu paranteza deschisa"); ok = false; break;
+                }
 
+            }
+            int c0 = 1, c1 = 1;
+            if(ok)
+                for (int i = 1; i < s.Length; i++)
+                {
+                    int x = int.Parse(s[i]);
+                    if (x == 0) c0++;
+                    else c1++;
+
+
+
+                }
+            Console.WriteLine($"c0 = {c0}");
+            Console.WriteLine($"c1 = {c1}");
 
         }
     }
